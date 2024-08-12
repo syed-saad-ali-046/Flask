@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Python Script</title>
+    <style>
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<button class="button" onclick="runScript()">Run Script</button>
+
+<script>
+    function runScript() {
+        fetch('http://127.0.0.1:5000/run-script', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            alert("Script executed: " + data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Failed to execute script");
+        });
+    }
+</script>
+
+</body>
+</html>
+ 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload T-Shirt Image</title>
+</head>
+<body>
+    <h1>Upload T-Shirt Image</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" required>
+        <button type="submit">Upload</button>
+    </form>
+    <script>
+        document.getElementById('uploadForm').onsubmit = function(event) {
+            event.preventDefault();
+            var formData = new FormData();
+            formData.append("file", document.getElementById('file').files[0]);
+
+            fetch('http://127.0.0.1:5000', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+            .then(data => {
+                alert('T-Shirt Size: ' + data.result);
+            }).catch(error => {
+                console.error('Error:', error);
+                alert("Failed to upload or process the image.");
+            });
+        };
+    </script>
+</body>
+</html>
